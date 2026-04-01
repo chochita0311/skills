@@ -1,0 +1,8 @@
+project root:
+current repo:
+related repos:
+shared context path:
+confirmed facts:
+current goal:
+
+follow context:

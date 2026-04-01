@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project Context Sync"
+  short_description: "Sync local multi-repo or single-repo context across sessions"
+  default_prompt: "Use $project-context-sync to set or refresh shared context before implementation work."
