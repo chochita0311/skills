@@ -5,13 +5,30 @@
 project root:
 current repo:
 related repos:
+repo alias mapping:
+- token:
+  resolved path:
+  status: confirmed|open
 
 ## Work Identity
 
-ticket/story/task:
+reference scope: (optional)
+references in scope:
+- type:
+  ref:
+  note:
+reference relationships:
+- 
 branch purpose:
 current goal:
-planned work (ticket-defined, not implemented yet):
+planned work (reference-defined, not implemented yet):
+
+reference sync status:
+references checked this session:
+- 
+reference deltas vs local context:
+- 
+external recheck needed: yes|no
 
 ## Confirmed Facts
 
@@ -43,7 +60,7 @@ working targets:
 planned targets:
 
 [project-a]
-- future job/module from ticket
+- future job/module from reference
 
 ## Recent Decisions
 

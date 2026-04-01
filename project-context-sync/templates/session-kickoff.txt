@@ -2,7 +2,11 @@ project root:
 current repo:
 related repos:
 shared context path:
+follow context:
+
+reference scope: (optional)
+references in scope:
+reference relationships:
+
 confirmed facts:
 current goal:
-
-follow context:

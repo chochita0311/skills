@@ -1,15 +1,16 @@
 ---
 name: project-context-sync
-description: Keep local project context synchronized across sessions and repositories. Use when work spans one or multiple repos, when repeated re-explanations slow progress, or when code changes require context and optional ticket docs to stay aligned.
+description: Keep local project context synchronized across sessions and repositories. Use when work spans one or multiple repos, when repeated re-explanations slow progress, and when optional external references must stay aligned.
 ---
 
 # Project Context Sync
 
 Use this skill to keep work context accurate and reusable across sessions.
-
-This skill applies to both:
-- multi-repo work in one local project root
-- single-repo work where long-running tasks need durable handoff notes
+Its core purpose is local project working-context continuity across sessions.
+It supports:
+- no-reference workflows
+- reference-backed workflows (tickets, wiki pages, site URLs, docs, or mixed)
+- follow-up workflows with linked references (for example parent/child tickets)
 
 ## Core Goal
 
@@ -27,6 +28,19 @@ Always model context at two levels:
 Optionally add:
 - `related repos`: producer, consumer, scheduler, downstream, interface readers
 
+## Reference Scope (Flexible)
+
+Reference handling is optional and extensible.
+Use it only when external references are needed to keep local context correct.
+
+When references exist:
+- record a short `reference scope` statement
+- record concrete `references in scope` (type + identifier/link)
+- record relationship hints when relevant (for example parent/child, base spec/change log)
+
+Do not hardcode source types in the contract.
+New source types should be addable without changing the core workflow.
+
 ## Source Priority
 
 Use sources in this order.
@@ -42,31 +56,35 @@ Use sources in this order.
 - confirm cross-repo data flow, ownership, and compatibility
 
 4. External source (optional)
-- Jira, Confluence, issue tracker, internal wiki
+- issue tracker, wiki, design/spec docs, runbooks, site URLs
 - only when policy/source-of-truth recheck is needed
 
-External tools are optional, not mandatory entry points.
+External sources are optional, not mandatory entry points.
 
-## When to Use External Sources
+## When To Use External Sources
 
-Use ticket/wiki sources only when needed, such as:
+Use external references only when needed, such as:
 - rollout, payload, schema, or policy is defined externally
 - latest decision may have changed since last session
-- ticket description must be updated to stay authoritative
-- upcoming planned job/module exists only in ticket docs
+- external document must be updated to stay authoritative
+- upcoming planned job/module exists only in external docs
 
 Skip external rereads when:
 - local context already captures stable facts
 - implementation does not depend on changing external policy
 
-## Optional Atlassian MCP Integration
+## Optional Source Integrations
 
 Portability note:
 - The core workflow of this skill is tool-agnostic.
-- This section is Codex-specific and optional; skip it in environments without Codex MCP.
+- Source connectors are optional and environment-specific.
 
-When Jira/Confluence recheck is needed and MCP is available, Atlassian MCP can be used as an optional source.
-Do not make it a mandatory first step for every session.
+When external recheck is needed and a connector is available, it can be used as an optional source.
+Do not make connector reads a mandatory first step for every session.
+
+### Atlassian Integration (Optional)
+
+Use this when Jira/Confluence references are in scope and freshness matters.
 
 Codex MCP integration file:
 `~/.codex/config.toml`
@@ -79,72 +97,31 @@ url = "https://mcp.atlassian.com/v1/mcp"
 ```
 
 Usage rule:
-- use Atlassian MCP when ticket or policy freshness matters
+- use Atlassian MCP when Jira/Confluence freshness matters
 - skip it when local context already has stable confirmed facts
 
-## Required Context Fields
+### Add Another Integration Later
 
-Maintain these fields in the shared context document.
+For any new source connector, add a sibling subsection with:
+- connector name
+- configuration location
+- minimal config snippet
+- freshness/when-to-use rule
 
-1. `scope`
+## Entry Contract
+
+At session start, capture at least:
 - `project root`
 - `current repo`
+- `current goal`
+
+When provided, also capture:
 - `related repos`
+- `reference scope` (optional, free-text)
+- `references in scope` (optional list)
+- `shared context path` or `follow context path`
 
-2. `work identity`
-- ticket/story/task
-- branch purpose
-- current goal
-- planned work not implemented yet (if ticket-defined)
-
-3. `confirmed facts`
-- proven architecture or policy facts
-- cross-repo explanation if provided
-- role mapping (producer/consumer/scheduler/downstream)
-
-4. `open questions`
-- unresolved decisions
-- uncertain assumptions
-- explicit recheck points
-
-5. `working targets`
-- files/classes/modules to open first
-- grouped by project
-- include `planned targets` when code does not exist yet
-
-6. `recent decisions`
-- naming decisions
-- query/schema/index decisions
-- payload contract decisions
-
-7. `next handoff note`
-- concise starter context for the next session
-
-## Context Placement Patterns
-
-Use one of these patterns.
-
-Pattern A. Root shared context
-- `<project-root>/inter-context.md`
-- best when multiple repos share one active workflow
-
-Pattern B. Repo-owned context
-- `<project-root>/<repo-name>/inter-context.md`
-- best when one repo is the context owner
-
-Pattern C. Hybrid
-- root-level overview + repo-specific context files
-- use only when A or B is insufficient
-
-## Propagation Workflow
-
-For inter-repo work, follow this flow.
-
-1. Create/update context in owner location
-2. Record confirmed facts and working targets
-3. In next repo/session, read owner context first
-4. Add new facts and decisions back to the same context
-5. Keep one canonical context per workflow to avoid divergence
+If a chain relationship is explicit (for example "ticket X and child tickets"), treat that as a required boundary.
 
 ## Session Startup Contract
 
@@ -174,18 +151,117 @@ current repo:
 follow context:
 ```
 
+Reference-aware form:
+
+```text
+project root:
+current repo:
+related repos:
+reference scope:
+references in scope:
+reference relationships:
+current goal:
+follow context:
+```
+
+## Required Context Fields
+
+Maintain these fields in the shared context document.
+
+1. `scope`
+- `project root`
+- `current repo`
+- `related repos`
+- `repo alias mapping` (if any)
+
+2. `work identity`
+- reference scope (optional)
+- references in scope (optional list; each with type + identifier/link)
+- reference relationships (optional)
+- branch purpose
+- current goal
+- planned work not implemented yet (if reference-defined)
+
+3. `confirmed facts`
+- proven architecture or policy facts
+- cross-repo explanation if provided
+- role mapping (producer/consumer/scheduler/downstream)
+
+4. `open questions`
+- unresolved decisions
+- uncertain assumptions
+- explicit recheck points
+
+5. `working targets`
+- files/classes/modules to open first
+- grouped by project
+- include `planned targets` when code does not exist yet
+
+6. `recent decisions`
+- naming decisions
+- query/schema/index decisions
+- payload contract decisions
+
+7. `next handoff note`
+- concise starter context for the next session
+
+8. `reference sync status`
+- only when external references are in scope
+- references checked this session
+- what changed in external docs vs local context
+- whether another reference recheck is required
+
+## Context Placement Patterns
+
+Use one of these patterns.
+
+Pattern A. Root shared context
+- `<project-root>/inter-context.md`
+- best when multiple repos share one active workflow
+
+Pattern B. Repo-owned context
+- `<project-root>/<repo-name>/inter-context.md`
+- best when one repo is the context owner
+
+Pattern C. Hybrid
+- root-level overview + repo-specific context files
+- use only when A or B is insufficient
+
+## Related Repo Resolution Under One Root
+
+For each related repo name/path:
+1. Resolve to an absolute path under `project root`.
+2. If exact path is missing, allow a local alias only when unambiguous.
+3. Record the alias mapping in context so future sessions do not drift.
+4. If ambiguous, leave it as an open question; do not fabricate ownership.
+
+Generic example:
+- user token: `service-api`
+- resolved path: `<project-root>/service-api` (or recorded alias mapping when naming differs)
+
+## Propagation Workflow
+
+For inter-repo work, follow this flow.
+
+1. Create/update context in owner location
+2. Record confirmed facts and working targets
+3. In next repo/session, read owner context first
+4. Add new facts and decisions back to the same context
+5. Keep one canonical context per workflow to avoid divergence
+
 ## Operating Procedure
 
-Use this exact sequence unless a repository has stronger local rules.
+Use this sequence unless repository-local rules are stronger:
+1. confirm root/repo/goal and optional reference scope
+2. read canonical shared context
+3. open `working targets` first
+4. verify current repo implementation state
+5. verify related repos only when coupling exists
+6. if references are declared and freshness matters, recheck external references only when needed
+7. update shared context in the same session as code or policy changes
+8. end with a short handoff note
 
-1. Confirm `project root`, `current repo`, and active goal
-2. Locate and read shared context doc
-3. Open `working targets` first
-4. Verify current repo implementation
-5. Verify related repo behavior if cross-repo coupling exists
-6. Use external source only if recheck is necessary
-7. Update shared context with new confirmed facts and decisions
-8. Write a short handoff note before ending session
+Detailed decision logic and failure diagnosis live in `references/method.md`.
 
 ## Stale Context Protocol
 
@@ -204,19 +280,19 @@ Protocol:
 2. Mark obsolete assumptions clearly
 3. Before next run, re-validate only high-risk assumptions
 
-## Optional Ticket Sync
+## Optional Reference Sync
 
-If requested or required, sync context updates back to tickets.
+If requested or required, sync context updates back to references.
 
 Typical cases:
-- payload/query/schema in ticket is outdated
-- ticket description is expected to be implementation reference
-- planned job/module sections need to stay aligned with code plan
+- payload/query/schema in reference docs is outdated
+- policy page or spec doc lags behind implementation
+- planned job/module sections need to stay aligned with code plan and docs
 
 Recommended order:
 1. code change
 2. local context update
-3. optional ticket description/comment update
+3. optional reference update
 
 ## Context Lifecycle
 
@@ -243,9 +319,18 @@ Do not:
 - re-scan all related repos without a concrete reason
 - keep stale assumptions after code contract changes
 - maintain multiple conflicting context files for the same workflow
+- lose declared reference boundaries while syncing context
 
-## Bundled Templates
+## Bundled Files
 
 - Use [templates/inter-context.md](templates/inter-context.md) to initialize or reset a context file.
 - Use [templates/session-kickoff.txt](templates/session-kickoff.txt) as a reusable session input block.
+- Use [references/method.md](references/method.md) for detailed operating procedure and diagnostics.
+- Use [references/checklist.md](references/checklist.md) for final quick validation.
 
+## File Role Boundaries
+
+- `SKILL.md`: trigger rules, scope model, source priority, context schema, and operating order.
+- `references/method.md`: detailed execution logic, decision gates, and failure diagnosis.
+- `references/checklist.md`: short final validation checklist.
+- `templates/*`: initialization artifacts for context and session kickoff inputs.
