@@ -50,6 +50,7 @@ This skill is general-purpose. It should travel well across repositories, stacks
 ## General Rules
 
 - Keep behavior-preserving work clearly separate from intentional semantic redesign.
+- If behavioral parity is requested, treat parity as a proof task, not an assumption.
 - Preserve interface, schema, config, and generated-artifact coupling awareness when types, packages, or module boundaries move.
 - Include wiring or registration checks when moving framework configuration, plugins, containers, consumers, handlers, or adapters.
 - Prefer targeted parity tests plus build, startup, and runtime smoke gates for touched paths rather than vague "test everything" plans.
@@ -62,6 +63,7 @@ This skill is general-purpose. It should travel well across repositories, stacks
 
 - Do not present speculative architecture as if it were already approved.
 - Do not label a step "behavior-preserving" if contracts, persistence semantics, or side effects are intentionally changing.
+- Do not claim "parity preserved", "no drift", or "safe to merge" before strict comparison evidence is recorded.
 - Do not hide risky deltas inside broad step names like "cleanup", "modernization", or "polish".
 - Do not use phases as a vague backlog dump; each phase needs a purpose, scope boundary, and exit gate.
 - Do not assume a repository needs numbered plans if it already has a better local convention.
@@ -149,3 +151,29 @@ Every refactor plan should make these items explicit:
 - residual risks or open questions
 
 If any of those are unknown, mark them as provisional instead of pretending they are settled.
+
+## Parity-Strict Mode
+
+When the user prioritizes behavioral parity, this mode is mandatory.
+
+Required behavior:
+- Pin an explicit compare baseline (branch/commit/release target).
+- Build a source mapping of affected old-path to new-path for the full execution flow.
+- Perform file-by-file and logic-path comparison before parity conclusions.
+- Compare query semantics explicitly:
+  - selected tables
+  - join type and predicates
+  - where predicates
+  - group/order/limit behavior
+  - null/default/fallback behavior
+  - status/filter conditions
+- Compare mapping/output construction explicitly:
+  - field-by-field payload population
+  - defaults, fallbacks, and exception behavior
+  - ordering and dedupe semantics
+
+Claim rules:
+- If any relevant path is not audited, parity status must be `Unknown/Provisional`.
+- Do not use confidence language to mask missing audit coverage.
+- If drift is found mid-audit, report it immediately and revise prior parity claims.
+- If a previous parity-safe statement is later contradicted by audit evidence, explicitly retract and correct that statement.

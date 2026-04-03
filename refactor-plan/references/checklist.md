@@ -112,6 +112,28 @@ For every changed write path, verify:
 - Confirm the refactor still produces data consistent with those rules.
 - Record any intentional normalization or contract tightening.
 
+### 4.7 Strict Baseline Audit Gate (Required for parity claims)
+
+- Baseline target is explicit:
+  - branch, commit, or release compare target is pinned
+- Old-to-new source mapping is complete for affected flow:
+  - entrypoint
+  - orchestration/service path
+  - repository/query path
+  - payload builder/output writer path
+- Query semantics are compared explicitly for each affected query:
+  - join types and join predicates
+  - where predicates
+  - group/order/limit
+  - null/default/filter/status conditions
+- Output semantics are compared explicitly:
+  - field-by-field mapping
+  - fallback/default behavior
+  - dedupe and ordering behavior
+- If any path was not audited:
+  - parity conclusion must be `Unknown` or `Provisional`
+  - do not conclude `Preserved`
+
 ## 5) Validation Gates
 
 - Build gate:
@@ -168,6 +190,9 @@ Use this exact output format in review notes when relevant:
   - `...`
 - Post-merge monitoring:
   - `...`
+
+Strict parity claim rule:
+- `Behavioral parity vs baseline = Preserved` is allowed only when section 4.7 is fully satisfied.
 
 ## 9) Optional Branch Wrap-Up Addendum
 

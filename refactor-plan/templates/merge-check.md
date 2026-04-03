@@ -60,6 +60,19 @@ Examples:
 - Runtime / smoke / manual verification:
   - `...`
 
+## Strict Parity Audit Coverage
+
+- Baseline pinned:
+  - `Yes | No`
+- Source mapping complete (old -> new paths):
+  - `Yes | No`
+- Query semantics audited line-by-line:
+  - `Yes | No`
+- Payload/output mapping audited field-by-field:
+  - `Yes | No`
+- Any unaudited relevant path:
+  - `None | ...`
+
 ## Merge Assessment
 
 - Safe to merge:
@@ -107,3 +120,4 @@ Examples:
 - If runtime evidence is user-verified or externally observed rather than directly executed, say that explicitly.
 - If the full test suite was not run, record that plainly instead of implying broader confidence.
 - If the answer is “not yet,” the log should still say what blocks merge and what to do next.
+- `Behavioral parity vs baseline = Preserved` is valid only when Strict Parity Audit Coverage is fully satisfied.

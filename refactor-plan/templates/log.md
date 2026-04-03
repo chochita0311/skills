@@ -61,6 +61,10 @@ If the project does not use numbered refactor tracks, replace `refactor-xxxx` wi
   - `None` or `...`
 - Important compatibility or contract notes:
   - `...`
+- Parity claim status:
+  - `Preserved | Provisional | Unknown`
+- If `Preserved`, strict baseline audit completed:
+  - `Yes | No`
 
 ## Validation
 

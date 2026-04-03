@@ -86,6 +86,7 @@ Validation:
 - [build or compile gate]
 - [targeted tests]
 - [startup, registration, or runtime smoke if needed]
+- [when parity is required: explicit baseline-compare audit tasks]
 
 Exit gate:
 - [What must be true before moving on]
@@ -102,6 +103,11 @@ Exit gate:
   - `[targeted suites or smoke paths]`
 - Review focus:
   - `[contract parity, persistence semantics, side effects, transaction shape, etc.]`
+- Parity audit coverage (required when parity is requested):
+  - `[baseline pinned]`
+  - `[old->new source mapping complete]`
+  - `[query semantics audited]`
+  - `[payload/output mapping audited]`
 
 ## Intentional Deltas
 
