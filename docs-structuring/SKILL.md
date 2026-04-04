@@ -47,7 +47,8 @@ Produce a documentation system with these properties:
 3. Choose the owning layer for each durable fact.
 4. Reorganize by moving or rewriting content into the owning doc.
 5. Add cross-links where they materially improve context discovery.
-6. Validate the result with the checklist.
+6. Track the changes explicitly as `before -> after`.
+7. Validate the result with the checklist.
 
 ## Rules
 
@@ -63,12 +64,27 @@ Produce a documentation system with these properties:
 - Prefer document structures that clarify ownership and navigation instead of copying folder patterns mechanically.
 - Do not remove preexisting file content just to make the tree look cleaner; preserve and reorganize it unless the user explicitly wants content removed.
 - When a proposed split, new file, or larger restructure is optional rather than clearly required, suggest it first and wait for approval before applying it.
+- Prefer incremental cleanup when the existing structure is already mostly stable; do not reprocess stable areas without a reason.
 
 ## References
 
 Read [references/method.md](references/method.md) for the full procedure, decision logic, and approval boundaries.
 Read [references/layer-model.md](references/layer-model.md) when you need a concise model for assigning document ownership.
 Read [references/checklist.md](references/checklist.md) before finalizing a documentation reorganization.
+
+## Output Format
+
+Unless the user asks for a lighter response, structure the working result around:
+- operating mode used (`incremental` or `restructure`)
+- doc-role map
+- ownership changes
+- `before -> after` structure summary
+- moved content summary
+- removed duplication summary
+- cross-link additions
+- suggested-only restructures
+- decision confidence summary
+- unresolved or low-confidence items
 
 ## Output Standard
 
