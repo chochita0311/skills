@@ -6,14 +6,16 @@
 - Run through it before expanding screens.
 
 ## 1. Identify The Start
-- What is the current starting artifact?
-  - first screen artifact
-  - first screen plus product context
+- What is the current starting source set?
+  - single screen artifact
+  - multi-screen source set
+  - source set plus product context
 - Which starting point is this?
   - single-screen artifact
+  - multi-screen source set
   - screen-plus-context
 - Is the source priority explicit?
-  - screen artifact
+  - visual source set
   - creative-source doc such as `DESIGN.md`
   - repo constraints/docs
   - user notes
@@ -31,12 +33,16 @@
 - What validations or permissions will affect UI?
 - What future expansion is already likely?
 
-## 4. Evaluate The First Artifact
-- Extract from the first screen:
+## 4. Evaluate The Source Set
+- Extract from the source set:
   - what is the tone?
   - what is the content hierarchy?
   - what components repeat?
   - what is missing?
+- If several sources exist:
+  - what repeats across them?
+  - what is contradictory?
+  - which source acts as the anchor?
 - Then validate against system constraints:
   - what screen families are implied?
   - what role differences are implied?
@@ -125,9 +131,11 @@
 - `Pass` only if the constitution stands on its own as the stable rule document.
 - `Pass` only if the governance doc explains which design document to update when a change affects intent, durable law, or future planning.
 - `Pass` only if the governance doc names the actual creative-source file when one exists.
+- `Pass` only if the source priority and any anchor source are recoverable from the output or clearly implied by it.
 - `Pass` only if another agent could build several more screens without inventing new colors, radius families, spacing logic, or tone by guesswork.
 - `Fail` if the constitution contains implementation sequencing, next actions, or temporary tactical notes.
 - `Fail` if the governance doc leaves document ownership ambiguous.
+- `Fail` if several input sources were blended together without a clear reconciliation approach.
 - `Fail` if the outputs depend on unstated assumptions an evaluator cannot verify from the files.
 - Follow-up notes should stay in the response unless they clearly deserve a separate planning workflow.
 

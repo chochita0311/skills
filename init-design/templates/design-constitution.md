@@ -12,8 +12,9 @@
 - Primary jobs to be done:
 - Device priority:
 - Technical constraints:
-- Starting artifact type:
+- Starting source-set type:
   - single-screen artifact
+  - multi-screen source set
   - screen-plus-context
 
 ## 2. Compatibility Constraints

@@ -1,7 +1,7 @@
 interface:
   display_name: "Init Design"
-  short_description: "Turn a first screen into stable design rules"
-  default_prompt: "Use $init-design to turn this first screen artifact into a durable design constitution."
+  short_description: "Turn an initial source set into stable design rules"
+  default_prompt: "Use $init-design to turn this initial source set into a durable design constitution."
 
 policy:
   allow_implicit_invocation: true

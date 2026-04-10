@@ -4,8 +4,9 @@
 - This document explains how `init-design` should work as a reusable startup workflow for design.
 - It is written for solo builders who may start from:
   - a single AI-generated first screen
+  - several related HTML or mock screens
   - a drafted visual entry screen
-  - a first screen plus product context
+  - a source set plus product context
 - The goal is to make design:
   - compatible with backend and frontend evolution
   - maintainable as the project grows
@@ -17,7 +18,7 @@
 - `init-design` is not a prompt that asks AI to make something pretty.
 - `init-design` is a startup design workflow:
   - it reads the current project state
-  - evaluates the current visual entry artifact
+  - evaluates the current visual source set
   - checks compatibility against product and system constraints
   - extracts stable design decisions
   - organizes them into a constitution
@@ -36,7 +37,7 @@
   - the next step is always concrete
 
 ## The General Operating Rule
-- The first screen is a probe.
+- The initial source set is a probe.
 - The constitution is the system.
 - Tokens and semantics are the implementation bridge.
 - Components and layouts are the reusable execution layer.
@@ -59,7 +60,17 @@
 - Main risk:
   - page styling becomes fake system design
 
-### 2. Screen Plus Context
+### 2. Multi-Screen Source Set
+- Starting artifact:
+  - several related HTML pages
+  - several frames from the same proposed product
+  - several generated screens with overlapping structure
+- Main benefit:
+  - repeated patterns and system boundaries become easier to detect
+- Main risk:
+  - contradictions can be averaged together unless one source is named as the anchor
+
+### 3. Screen Plus Context
 - Starting artifact:
   - a first screen
   - `DESIGN.md` or another design-intent document
@@ -94,7 +105,7 @@
 
 ## Source Priority
 Use this priority order unless the repository explicitly defines another source-of-truth rule:
-1. current committed screen artifact or the explicit base screen named by the user
+1. current committed visual source set or the explicit base artifact(s) named by the user
 2. existing creative-source document such as `DESIGN.md`
 3. repository constraints and product/runtime docs
 4. explicit user notes or clarifications for the current run
@@ -104,6 +115,66 @@ Rules:
 - Higher-priority sources should not be silently overridden by lower-priority sources.
 - If a lower-priority source reveals a real contradiction, record it and resolve it explicitly instead of blending them together.
 - When the source set is `index.html + DESIGN.md`, treat `index.html` as the artifact and `DESIGN.md` as the intent source; the constitution must reconcile them rather than copy either one blindly.
+- When the source set contains several screens or HTML files, identify:
+  - the anchor source with the strongest structural authority
+  - repeated patterns across sources
+  - contradictions that should be resolved explicitly instead of blended silently
+
+## Source-Set Extraction Rules
+Use these rules as general extraction guidance. They are heuristic, not parser-level guarantees.
+
+### Visual Tone Extraction
+- Extract tone from repeated signals, not one decorative detail.
+- Prioritize:
+  - dominant backgrounds and surfaces
+  - repeated typography hierarchy
+  - repeated contrast behavior
+  - repeated density and spacing rhythm
+- Ignore one-off decorative anomalies unless they recur across the source set.
+
+### Color Extraction
+- Identify:
+  - dominant page/background color
+  - dominant surface color
+  - dominant readable text color
+  - accent color family from repeated interactive emphasis
+- Treat the most repeated non-neutral interactive accent as the likely primary accent.
+- Do not treat a single illustration, hero gradient, or one isolated badge as the whole color system.
+
+### Spacing Extraction
+- Infer spacing scale from repeated gaps, paddings, and section rhythms.
+- Cluster toward a reusable step system instead of copying every literal measurement.
+- Prefer identifying families such as compact, standard, and large spacing before declaring many exact values.
+
+### Typography Extraction
+- Identify recurring display, headline, body, and caption roles from repeated usage.
+- Prefer role detection over copying every literal font size.
+- If the source set mixes several text scales, preserve only the scales that recur enough to become durable system roles.
+
+### Component Extraction
+- Repeated structures are component candidates.
+- Stable interaction surfaces such as buttons, inputs, cards, list rows, nav items, tabs, and drawers should be promoted before one-off compositions.
+- If a pattern appears only once and does not look reusable, do not force it into the component layer.
+
+### Shell And Layout Extraction
+- Detect recurring shell structure:
+  - top bar
+  - side navigation
+  - bottom navigation
+  - content column
+  - utility rail
+- Treat shell structure as durable only when it recurs or is strongly reinforced by context.
+
+## Screen Expansion Rules
+- Infer durable screen families from the source set, not from a fixed template count.
+- Strong signals:
+  - repeated collections or preview rows suggest browse/list families
+  - title + metadata + long body structures suggest detail/read families
+  - visible form fields, editors, or input-heavy actions suggest create/edit families
+  - persistent global navigation suggests settings, archive, or system-level surfaces later
+- When several screens are given, prefer the families supported by repeated structure across them.
+- When only one screen is given, infer cautiously and record only families strongly implied by that screen plus context.
+- Do not invent speculative screen families just to make the system feel complete.
 
 ## Output Rule
 - `design-constitution.md` is the durable design record.
@@ -528,9 +599,10 @@ Rules:
   - existing screens
   - token files if they exist
 
-### Step 2. Identify Starting Artifact Type
+### Step 2. Identify Starting Source-Set Type
 - classify:
   - single-screen artifact
+  - multi-screen source set
   - screen-plus-context
 
 ### Step 3. Build Compatibility View
@@ -541,8 +613,8 @@ Rules:
   - expected device usage
   - future expansion pressure
 
-### Step 4. Evaluate Initial Artifact
-- if a first screen artifact exists, extract:
+### Step 4. Evaluate Initial Source Set
+- if one or more visual artifacts exist, extract:
   - tone
   - hierarchy
   - navigation assumptions
