@@ -3,7 +3,7 @@
 Use this template when recording a merge-safety or parity checkpoint for a refactor track, step, or batch.
 
 Default location:
-- `./docs/refactoring/logs/`
+- `./docs/plans/refactoring/logs/`
 
 This template is stricter than a normal execution log. It is for decisions, not narration.
 

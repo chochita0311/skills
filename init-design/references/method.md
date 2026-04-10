@@ -86,9 +86,9 @@
 
 ## Output Separation Rule
 - `design-constitution.md` is the durable design record.
-- `plan.md` is the current working design plan.
+- `design-plan.md` is the current working design plan.
 - The constitution should survive multiple screen additions with only occasional updates.
-- The plan should change whenever scope, order, or uncertainty changes.
+- The design plan should change whenever scope, order, or uncertainty changes.
 - If a section mainly answers "what is locked?", it belongs in the constitution.
 - If a section mainly answers "what now?", it belongs in the plan.
 - If content appears in both files:
@@ -571,11 +571,9 @@
   - what should be delayed
 
 ### Step 6.5. Write Outputs To Project Docs
-- Default output folder:
-  - `./docs/designs/`
-- Default files:
-  - `design-constitution.md`
-  - `plan.md`
+- Default output locations:
+  - `./docs/policies/design/design-constitution.md`
+  - `./docs/plans/design/design-plan.md`
 - If the project already uses another established design-doc folder, follow that local convention instead of creating a second parallel location.
 
 ### Step 7. Add Guardrails

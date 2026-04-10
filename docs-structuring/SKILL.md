@@ -62,6 +62,7 @@ Produce a documentation system with these properties:
 - When changing one doc, check nearby docs and linked docs for stale context.
 - If guidance already exists in the correct owner doc, link to it instead of copying it.
 - Prefer document structures that clarify ownership and navigation instead of copying folder patterns mechanically.
+- When a repository uses a durable-rule versus active-plan split, prefer `docs/policies/` for owned rules and `docs/plans/` for sequencing, refactoring, and roadmap material.
 - Do not remove preexisting file content just to make the tree look cleaner; preserve and reorganize it unless the user explicitly wants content removed.
 - When a proposed split, new file, or larger restructure is optional rather than clearly required, suggest it first and wait for approval before applying it.
 - Prefer incremental cleanup when the existing structure is already mostly stable; do not reprocess stable areas without a reason.

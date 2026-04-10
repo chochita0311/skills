@@ -56,9 +56,9 @@ Use this skill to turn a first screen artifact into a stable design starting poi
   - optional UI metadata
 
 ## Output Location
-- Write project outputs under `./docs/designs/` by default:
-  - `design-constitution.md`
-  - `plan.md`
+- Write project outputs under split policy/plan folders by default:
+  - `./docs/policies/design/design-constitution.md`
+  - `./docs/plans/design/design-plan.md`
 - Only use another folder if the project already has an established convention.
 
 ## Core Rule
@@ -83,7 +83,7 @@ Use this skill to turn a first screen artifact into a stable design starting poi
   - file-by-file work items
   - temporary uncertainty that does not change durable rules
   - transitional wording such as `for now`, `until later`, or `currently unless changed`
-- `plan.md` answers:
+- `design-plan.md` answers:
   - what is still unresolved
   - what should be built or clarified next
   - which screen scope is active now
@@ -91,10 +91,10 @@ Use this skill to turn a first screen artifact into a stable design starting poi
   - which decisions are still open
   - which build sequence is active now
   - what versioning or constitution delta this run introduced
-- `plan.md` should refer to durable decisions briefly instead of restating them:
+- `design-plan.md` should refer to durable decisions briefly instead of restating them:
   - use short status or delta bullets when the constitution already captures the full rule
   - summarize locked decisions only enough to explain the active plan
-- `plan.md` must not include:
+- `design-plan.md` must not include:
   - a full restatement of the constitution
   - full token tables that are already locked
   - full component definitions that are already locked

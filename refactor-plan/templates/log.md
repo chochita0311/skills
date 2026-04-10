@@ -3,7 +3,7 @@
 Use this template when writing a refactor execution log.
 
 Default location:
-- `./docs/refactoring/logs/`
+- `./docs/plans/refactoring/logs/`
 
 Keep logs event-shaped and decision-useful. A log should help someone understand what changed, what was proven, and what remains.
 

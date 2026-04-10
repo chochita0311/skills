@@ -134,10 +134,10 @@ Exit gate:
 ## Usage Notes
 
 - Default location for generated plans:
-  - `./docs/refactoring/`
+  - `./docs/plans/refactoring/`
 - If the repository already uses a numbered scheme such as `REFACTOR-0001`, keep that naming convention.
 - If it does not, adapt the structure to the local planning style rather than forcing a new naming system.
-- If the project already stores refactor plans in another folder, keep using that folder instead of introducing `./docs/refactoring/` in parallel.
+- If the project already stores refactor plans in another folder, keep using that folder instead of introducing `./docs/plans/refactoring/` in parallel.
 - Leave handoff snapshots when work moves into a later track instead of silently deleting context.
 - Do not describe intentional behavior changes as refactoring unless the plan explicitly marks them as intentional deltas.
 - Use the section order exactly unless the repository has an explicitly stronger required format.

@@ -27,7 +27,7 @@ This skill is general-purpose. It should travel well across repositories, stacks
    - Extend an existing plan when the new work is a direct continuation of that track.
    - Create a new numbered or named plan when the work starts a distinct new track.
    - Do not overwrite historical rationale from earlier plan files; preserve continuity and add explicit handoff notes when scope moves.
-   - By default, place refactor tracking files under `./docs/refactoring/`.
+   - By default, place refactor tracking files under `./docs/plans/refactoring/`.
    - If the project already uses another folder for refactor plans, follow that existing convention instead of forcing a new one.
 
 4. Build the plan in bounded slices.
@@ -43,8 +43,8 @@ This skill is general-purpose. It should travel well across repositories, stacks
 
 6. Make the output immediately usable.
    - If asked to create the plan, write or update the actual tracking file.
-   - Prefer `./docs/refactoring/` as the default location for refactor schemes, plans, and handoff notes.
-   - Prefer `./docs/refactoring/logs/` as the default location for refactor logs.
+   - Prefer `./docs/plans/refactoring/` as the default location for refactor schemes, plans, and handoff notes.
+   - Prefer `./docs/plans/refactoring/logs/` as the default location for refactor logs.
    - If the project already uses a different planning folder, continue there rather than splitting refactor history across multiple locations.
    - If only asked for planning guidance, provide a concise draft using the same canonical structure without unnecessary prose.
 
@@ -128,7 +128,7 @@ Write refactor logs as durable execution records, not casual notes.
   - what comes next
 - Do not mix multiple unrelated events into one log just because they happened on the same day.
 - When a log is tied to a plan track, link the active tracking file near the top.
-- Prefer `./docs/refactoring/logs/` as the default log folder unless the project already uses a different established location.
+- Prefer `./docs/plans/refactoring/logs/` as the default log folder unless the project already uses a different established location.
 
 Unless the project already has a stronger mandatory format, generate logs in one of these canonical shapes:
 - Step log
