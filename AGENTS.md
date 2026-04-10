@@ -1,17 +1,17 @@
 # Repository Guidelines
 
 ## Purpose
-- This repo stores reusable Codex skills.
-- Each skill should be portable, checkable, and maintainable across projects.
+- This repo stores reusable AI assets, including Codex skills.
+- Each skill should remain portable, checkable, and maintainable across projects.
 - Optimize for strong contracts, clean file roles, and harness-friendly expansion.
 
 ## Codebase Map
 - Scan the repo root before assuming structure.
-- Each top-level folder is one skill package.
+- `skills/` holds the reusable skill packages.
 - `SKILL.md` is the entry contract for a skill.
-- `agents/` holds UI-facing skill metadata.
-- `references/` holds detailed method, logic, and validation material.
-- `templates/` holds output scaffolds.
+- Within each skill package, `agents/` holds UI-facing skill metadata.
+- Within each skill package, `references/` holds detailed method, logic, and validation material.
+- Within each skill package, `templates/` holds output scaffolds.
 - `docs/` holds repo-level skill guidance and governance.
 
 ## Source Of Truth
@@ -34,4 +34,3 @@
 - Keep each doc responsible for one clear purpose.
 - Use docs to define what a good skill looks like, not to restate every skill package.
 - Prefer links and ownership pointers over repeated prose.
-
