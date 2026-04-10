@@ -12,6 +12,11 @@
 - Which starting point is this?
   - single-screen artifact
   - screen-plus-context
+- Is the source priority explicit?
+  - screen artifact
+  - creative-source doc such as `DESIGN.md`
+  - repo constraints/docs
+  - user notes
 
 ## 2. Confirm Product Reality
 - Who are the primary users?
@@ -85,7 +90,6 @@
 - Do not force three if the product currently supports fewer
 - Do not stop at three if the product clearly needs more
 - Put durable families in the constitution
-- Put current build order in the plan
 
 ## 11. Check Stability
 - Can these screens be built without new colors?
@@ -109,25 +113,23 @@
   - layout rules
   - core components
   - screen families
-- Plan contains the active sections:
-  - summary
-  - starting artifact
-  - active deltas or constitution status
-  - what is not stable yet
-  - active screen scope
-  - current build sequence
-  - open decisions
-  - risks
-  - next actions
-  - versioning note when the constitution is created or changed
+- Governance doc contains:
+  - document ownership
+  - source hierarchy
+  - update rules
+  - rule-promotion guidance
+  - evaluation rules
+  - the actual creative-source file when one already exists
 
-## 14. Check Separation
-- Can the constitution stand on its own as the stable rule document?
-- Can the plan be read as a current working document without repeating the whole constitution?
-- If the plan is deleted, does the constitution still explain the design system?
-- If the constitution needs weekly edits for short-term tasks, separation is too weak
-- If the plan mentions locked decisions, are they reduced to short status or delta notes instead of rewritten rule sections?
-- Even if the plan is compact, does it still keep the active planning spine instead of collapsing into summary plus next actions only?
+## 14. Pass / Fail Checks
+- `Pass` only if the constitution stands on its own as the stable rule document.
+- `Pass` only if the governance doc explains which design document to update when a change affects intent, durable law, or future planning.
+- `Pass` only if the governance doc names the actual creative-source file when one exists.
+- `Pass` only if another agent could build several more screens without inventing new colors, radius families, spacing logic, or tone by guesswork.
+- `Fail` if the constitution contains implementation sequencing, next actions, or temporary tactical notes.
+- `Fail` if the governance doc leaves document ownership ambiguous.
+- `Fail` if the outputs depend on unstated assumptions a checker cannot verify from the files.
+- Follow-up notes should stay in the response unless they clearly deserve a separate planning workflow.
 
 ## 15. Final Question
 - If I stop this work for a month, will I know:
@@ -135,5 +137,4 @@
   - how it should feel
   - which values are locked
   - which components already exist
-  - what to build next
 - If not, `init-design` is not finished yet.

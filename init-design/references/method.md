@@ -21,7 +21,7 @@
   - checks compatibility against product and system constraints
   - extracts stable design decisions
   - organizes them into a constitution
-  - produces a concrete next-step plan
+  - and writes the governance rules for how design documents relate
 
 ## What Problem `init-design` Solves
 - Without a stable startup workflow:
@@ -62,6 +62,7 @@
 ### 2. Screen Plus Context
 - Starting artifact:
   - a first screen
+  - `DESIGN.md` or another design-intent document
   - product notes
   - schema notes
   - role definitions
@@ -83,17 +84,39 @@
 - `9. Screen-family baseline`
 - `10. Risks and unknowns`
 - `11. Versioning note`
+- `12. Design document governance`
 
-## Output Separation Rule
+## Creative Source Detection
+- If the repo already has a creative-source document such as `DESIGN.md`, treat it as the design-intent source.
+- Do not promote that file directly into durable law.
+- Reflect the actual source file name in the governance doc when it exists.
+- If no creative-source document exists, keep the governance wording general enough to tolerate a future source file.
+
+## Source Priority
+Use this priority order unless the repository explicitly defines another source-of-truth rule:
+1. current committed screen artifact or the explicit base screen named by the user
+2. existing creative-source document such as `DESIGN.md`
+3. repository constraints and product/runtime docs
+4. explicit user notes or clarifications for the current run
+5. cautious inference only where the above sources do not decide the issue
+
+Rules:
+- Higher-priority sources should not be silently overridden by lower-priority sources.
+- If a lower-priority source reveals a real contradiction, record it and resolve it explicitly instead of blending them together.
+- When the source set is `index.html + DESIGN.md`, treat `index.html` as the artifact and `DESIGN.md` as the intent source; the constitution must reconcile them rather than copy either one blindly.
+
+## Output Rule
 - `design-constitution.md` is the durable design record.
-- `design-plan.md` is the current working design plan.
+- `design-document-governance.md` defines how design documents relate and when each one should be updated.
 - The constitution should survive multiple screen additions with only occasional updates.
-- The design plan should change whenever scope, order, or uncertainty changes.
 - If a section mainly answers "what is locked?", it belongs in the constitution.
-- If a section mainly answers "what now?", it belongs in the plan.
-- If content appears in both files:
-  - the constitution keeps the durable rule
-  - the plan keeps only the active implication or open issue
+- If a section mainly answers "what now?", keep it in the response or hand it off to a separate planning skill instead of turning `init-design` into a mixed-purpose workflow.
+- If a section mainly answers "which document owns this kind of change?", it belongs in the governance doc.
+
+## Producer And Checker Model
+- The producer should generate files that stand on their own without extra verbal rescue.
+- The checker should be able to evaluate those files against the checklist without re-running artifact analysis from scratch.
+- If a checker would need unstated assumptions to judge the result, the producer output is too soft.
 
 ## Department Structure
 - Think of `init-design` as seven departments.
@@ -238,48 +261,22 @@
   - transitional phrasing inside the rule itself
   - fallback wording that belongs in open decisions
 
-### Plan
-- Purpose:
-  - define the current startup path from artifact to working system
-- Should include:
-  - summary of the current state
-  - starting artifact evaluation
-  - what is already stable
-  - what is not stable yet
-  - open decisions
-  - active screen scope
-  - current build sequence
-  - risks and unknowns
-  - immediate next actions
-  - versioning note when this run creates or changes a constitution
-- Should not include:
-  - long product context restatements when the constitution already covers them
-  - long compatibility restatements when the constitution already covers them
-  - full token definitions that are already locked
-  - full semantic definitions that are already locked
-  - full component specifications that are already locked
-  - repeated guardrails copied from the constitution
-- When the plan includes a constitution-status or current-delta section:
-  - use it to point at what changed, what remains missing, or what the active implication is
-  - do not use it to rewrite the constitution section-by-section
-- A compact plan is acceptable only if it still preserves the active planning spine:
-  - unresolved items
-  - active screen scope
-  - current build sequence
-  - open decisions
-  - immediate next actions
-  - risks and unknowns
-- If the constitution and plan mention the same durable decision:
-  - the constitution keeps the full rule
-  - the plan keeps only the shortest note needed for sequencing, risk tracking, or open decisions
-
 ## Writing Rule
 - The constitution should read like a clean standard, not like a migration memo.
-- The plan should read like a current decision-and-action document, not like a second constitution.
 - When a rule is locked, write it directly.
-- When a rule is unsettled, move that uncertainty into the plan.
+- When a rule is unsettled, either leave it out of the constitution or note it briefly in the response instead of forcing a planning document.
 - Prefer short references such as `see constitution` over re-explaining stable sections in full.
-- In the plan, short references or compact deltas are preferred over repeating stable token, component, or compatibility content.
+
+## Pass / Fail Standard
+- `Pass` means:
+  - the constitution cleanly separates durable law from temporary action
+  - the governance doc cleanly separates creative source, durable law, and future planning ownership
+  - the outputs make it possible to extend the product without inventing new tone, token families, or screen logic casually
+- `Fail` means any of these:
+  - tactical next actions or rollout sequencing appear inside the constitution
+  - the creative-source file exists but is not named in governance
+  - durable rule ownership is ambiguous between source docs
+  - a checker could not tell whether three more screens could be built without visual drift
 
 ## Screen Scope Rule
 - Do not force a literal `First 3 Screens` section in every project.
@@ -291,7 +288,6 @@
 - If the starting input only supports one or two families, record only those.
 - If more families are already clearly required, record them.
 - Put durable screen families in the constitution.
-- Put the current build sequence and current priority in the plan.
 
 ## How Each Property Should Be Defined
 
@@ -563,18 +559,12 @@
   - layout rules
   - component rules
 
-### Step 6. Produce Initial Plan
-- always output:
-  - what is already stable
-  - what is not stable
-  - which 3 screens should be built first
-  - what should be delayed
-
-### Step 6.5. Write Outputs To Project Docs
+### Step 6. Write Outputs To Project Docs
 - Default output locations:
   - `./docs/policies/design/design-constitution.md`
-  - `./docs/plans/design/design-plan.md`
+  - `./docs/policies/design/design-document-governance.md`
 - If the project already uses another established design-doc folder, follow that local convention instead of creating a second parallel location.
+- If `DESIGN.md` or another creative-source doc exists, wire that actual file into the governance output instead of leaving the source unnamed.
 
 ### Step 7. Add Guardrails
 - explicitly define:

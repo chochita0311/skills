@@ -1,6 +1,6 @@
 ---
 name: init-design
-description: Use when starting or resetting product design from a first screen artifact and you need to turn it into a stable design constitution with compatibility checks, reusable rules, and a concrete startup plan. Use for web, mobile, or mixed products when a visual starting point exists but should not become the system by itself.
+description: Use when starting or resetting product design from a first screen artifact and you need to turn it into a stable design constitution with compatibility checks and reusable rules. Use for web, mobile, or mixed products when a visual starting point exists but should not become the system by itself.
 ---
 
 # Init Design
@@ -17,7 +17,7 @@ Use this skill to turn a first screen artifact into a stable design starting poi
   - layout rules
   - core component rules
   - a design constitution
-  - a startup plan
+  - design document governance
 - A project has drifted and needs its design baseline rebuilt from the current artifact
 
 ## Do Not Use This Skill When
@@ -27,38 +27,46 @@ Use this skill to turn a first screen artifact into a stable design starting poi
 - The task is a full visual redesign without a stable starting artifact to evaluate
 
 ## Invocation Examples
-- `Use $init-design to analyze this project from the current first screen artifact and produce a design constitution plus startup plan.`
-- `Use $init-design to review this initial screen and turn it into stable tokens, layout rules, and a startup plan.`
+- `Use $init-design to analyze this project from the current first screen artifact and produce a design constitution.`
+- `Use $init-design to review this initial screen and turn it into stable tokens, layout rules, and a design constitution.`
 - `Use $init-design to reset the design baseline for this app using the current main screen and the existing product constraints.`
+- `Use $init-design to analyze this project from index.html and DESIGN.md and make a constitution.`
 
 ## Workflow
 1. Read `references/method.md` for the full workflow.
 2. Identify the starting artifact type:
    - `single-screen artifact`
    - `screen-plus-context`
-3. Evaluate the artifact as design input, not as the final system.
-4. Check compatibility against:
+3. Resolve source priority before writing:
+   - current screen artifact or committed base screen
+   - existing creative-source document such as `DESIGN.md`
+   - repository constraints and docs
+   - explicit user notes or clarifications
+   - only then inference
+4. Identify whether a creative-source document already exists, such as `DESIGN.md`, and treat it as source material rather than as durable law.
+5. Evaluate the artifact as design input, not as the final system.
+6. Check compatibility against:
    - product goals
    - entities
    - roles
    - states
    - device priority
-5. Write or update the constitution with `templates/design-constitution.md`.
-6. Produce or update the current design startup plan with `templates/plan.md`.
-7. Use `references/checklist.md` as the final quick validation pass.
+7. Write or update the constitution with `templates/design-constitution.md`.
+8. Write or update design document governance with `templates/design-document-governance.md`.
+9. Use `references/checklist.md` as the final quick validation pass.
 
 ## Package Layout
 - `references/`
   - workflow and explanatory material to read while thinking
 - `templates/`
-  - reusable output scaffolds to copy or adapt for constitutions and startup plans
+  - reusable output scaffolds to copy or adapt for constitutions and governance docs
 - `agents/openai.yaml`
   - optional UI metadata
 
 ## Output Location
 - Write project outputs under split policy/plan folders by default:
   - `./docs/policies/design/design-constitution.md`
-  - `./docs/plans/design/design-plan.md`
+  - `./docs/policies/design/design-document-governance.md`
 - Only use another folder if the project already has an established convention.
 
 ## Core Rule
@@ -66,12 +74,10 @@ Use this skill to turn a first screen artifact into a stable design starting poi
 - Always convert the artifact into explicit rules before expanding screens.
 - Always validate design against compatibility, expandability, and maintainability constraints.
 - Treat the constitution as the stable rule document.
-- Treat the plan as the current working document.
 - Keep screen families in the constitution only when they are durable product structure.
-- Keep concrete build sequence, open questions, and immediate implementation scope in the plan.
-- Defer logs unless repeated design iterations or handoffs make them necessary.
+- Treat this skill as producer-checker friendly: a second agent should be able to judge pass/fail from the output files without reconstructing the whole design process.
 
-## Output Separation
+## Constitution Scope
 - `design-constitution.md` answers:
   - what is locked
   - how the product should feel
@@ -83,20 +89,21 @@ Use this skill to turn a first screen artifact into a stable design starting poi
   - file-by-file work items
   - temporary uncertainty that does not change durable rules
   - transitional wording such as `for now`, `until later`, or `currently unless changed`
-- `design-plan.md` answers:
-  - what is still unresolved
-  - what should be built or clarified next
-  - which screen scope is active now
-  - which risks or constraints need follow-up
-  - which decisions are still open
-  - which build sequence is active now
-  - what versioning or constitution delta this run introduced
-- `design-plan.md` should refer to durable decisions briefly instead of restating them:
-  - use short status or delta bullets when the constitution already captures the full rule
-  - summarize locked decisions only enough to explain the active plan
-- `design-plan.md` must not include:
-  - a full restatement of the constitution
-  - full token tables that are already locked
-  - full component definitions that are already locked
-  - durable rules unless they are being changed
-  - stable product context copied in full when a short reference to the constitution is enough
+
+## Governance Scope
+- `design-document-governance.md` answers:
+  - how `DESIGN.md`, the constitution, and any future design plan relate
+  - which document owns which kind of change
+  - how durable design rules are promoted or updated
+- `design-document-governance.md` should stay general enough to work whether a design plan exists yet or only becomes necessary later.
+- When a creative-source file such as `DESIGN.md` already exists, the governance doc should name it concretely instead of leaving the source abstract.
+
+## Pass/Fail Expectation
+- A run passes only when:
+  - the constitution reads like durable law rather than implementation notes or next-step planning
+  - the governance doc names the actual creative source when one exists
+  - the output is strong enough that another agent could build several more screens without inventing a new visual language
+- A run fails when:
+  - the constitution mixes durable rules with temporary tasks or sequencing
+  - the governance doc leaves source ownership ambiguous
+  - the output depends on unstated assumptions that a checker cannot verify from the files
