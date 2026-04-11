@@ -8,24 +8,26 @@
 
 ## Codebase Map
 - Scan the repo root before assuming structure.
-- `agents/` holds reusable top-level agent role contracts.
-- `agents/templates/` holds reusable PRD and feature templates for consuming repos.
+- `agents/` holds reusable harness role contracts.
+- `agents/templates/` holds shared planning and execution templates for consuming repos.
 - `skills/` holds the reusable skill packages.
 - `SKILL.md` is the entry contract for a skill.
 - Within each skill package, `agents/` holds UI-facing skill metadata.
 - Within each skill package, `references/` holds detailed method, logic, and validation material.
 - Within each skill package, `templates/` holds output scaffolds.
-- `docs/` holds repo-level skill guidance and governance.
+- `agents/policies/` holds the shared harness governance package.
 
 ## Source Of Truth
 - Keep `AGENTS.md` short and operational.
 - Keep `README.md` as the overview and navigation doc for humans entering the repo.
-- Keep durable repo-level guidance under `docs/policies/`.
-- Keep future tracking or planning docs under `docs/plans/` if this repo later needs them.
+- Keep shared harness governance under `agents/policies/` and keep skill-specific quality rules under `skills/`.
+- Keep shared harness and evaluation governance in `agents/policies/` rather than scattering it across role files.
+
 - Let each skill package own its own domain instructions; do not duplicate skill-local rules in `AGENTS.md`.
 
 ## Working Rules
 - Prefer strengthening an existing skill contract over adding parallel guidance.
+- Prefer strengthening the shared harness package over keeping divergent project-local copies once the shared version is proven stable.
 - Preserve clear separation between:
   - `SKILL.md` for trigger/scope/output contract
   - `references/method.md` for procedure and decision logic

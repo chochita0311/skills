@@ -9,12 +9,13 @@
 - This document owns rules.
 - Use it to understand what PRDs and features are, what they must contain, what may remain open, what must be clear before approval, and how traceability and change control work.
 - It does not own the full step-by-step baton sequence.
-- Use `<consumer-repo>/docs/agents/workflow.md` for the ordered flow, pause points, and handoff timing between planning and execution.
+- In a consuming repo, use `docs/agents/workflow.md` for the ordered flow, pause points, and handoff timing between planning and execution.
 
 ## Planning Layers
-- `<consumer-repo>/docs/plans/prd/` owns bounded PRD documents.
-- `<consumer-repo>/docs/plans/feature/` owns loop-sized feature documents derived from approved PRDs.
-- `<consumer-repo>/docs/policies/` continues to own durable project rules and contracts.
+- In a consuming repo, `docs/plans/prd/` owns bounded PRD documents.
+- In a consuming repo, `docs/plans/feature/` owns loop-sized feature documents derived from approved PRDs.
+- In a consuming repo, `docs/plans/spec/` owns implementation-facing specs derived from approved features.
+- In a consuming repo, `docs/policies/` continues to own durable project rules and contracts.
 
 ## Core Model
 - A `PRD` is the upper planning boundary for one coherent product increment.
@@ -91,7 +92,7 @@ Not every feature serves the same role in the harness workflow.
 
 - Keep an item in the PRD when it is still an open question or unresolved planning ambiguity.
 - Create a foundation feature when the intended direction is chosen and now needs a bounded, traceable contract artifact.
-- Move the rule to `<consumer-repo>/docs/policies/` instead when it becomes a durable repo-wide rule rather than a request-local planning outcome.
+- Move the rule into the consuming repo's `docs/policies/` instead when it becomes a durable repo-wide rule rather than a request-local planning outcome.
 
 ## Feature Rules
 - Create one feature document for each loop-sized unit approved from a PRD.
@@ -130,6 +131,10 @@ Use these statuses for PRD and feature documents:
   - do not silently implement it
   - decide whether it belongs in the parent PRD or the current feature
   - update the planning document first
+- If a PRD or feature changes materially enough that its current filename becomes misleading:
+  - rename the file when the ID should remain the same and the boundary is still the same planning object
+  - create a new PRD or feature and mark the old one `superseded` when the boundary itself has changed into a different planning object
+  - do not leave an active planning artifact with a semantically false filename
 - If a feature grows beyond a stable loop size:
   - split it into new feature documents
   - mark the old feature as `superseded`
@@ -161,7 +166,9 @@ Use these statuses for PRD and feature documents:
 ## Traceability Rules
 - Every PRD should have a stable ID such as `prd-0001`.
 - Every feature should have a stable ID such as `feat-0001`.
+- Every spec should have a stable ID such as `spec-0001`.
 - Feature documents must link to their parent PRD by path and ID.
+- Spec documents should link to exactly one parent feature and one parent PRD by path and ID.
 - Harness runs, evaluator reports, or fix notes should reference the active feature ID.
 - When a document is revised materially, add a short dated continuity note instead of rewriting history invisibly.
 
@@ -190,12 +197,14 @@ Use these statuses for PRD and feature documents:
 ## Split Trigger For Product Features
 
 Split a product feature when one or more of these become true:
-- list and grid or other modes require substantially different structure
+- multiple presentation modes require substantially different structure
 - fallback behavior diverges by surface
 - evaluator failures cluster into different UI surfaces
 - the feature repeatedly fails to converge within one to three loops
 
 ## Relationship To Agent Roles
-- `<consumer-repo>/docs/agents/prd-normalizer.md` defines how to stabilize raw inputs into a bounded PRD.
-- `<consumer-repo>/docs/agents/feature-planner.md` defines how to decompose an approved PRD into loop-sized features.
+- In a consuming repo, `docs/agents/prd-normalizer.md` defines how to stabilize raw inputs into a bounded PRD.
+- In a consuming repo, `docs/agents/feature-planner.md` defines how to decompose an approved PRD into loop-sized features.
+- In a consuming repo, `docs/agents/spec-agent.md` defines how to convert one approved feature into a build-ready spec.
+- In a consuming repo, `docs/policies/harness/execution-loop-governance.md` defines how approved features move through execution loops and how failures route upward.
 - This guide defines where those outputs live and how they stay traceable over time.

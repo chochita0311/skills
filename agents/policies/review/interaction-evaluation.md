@@ -1,0 +1,46 @@
+# Interaction Evaluation
+
+## Purpose
+- Keep reusable interaction-quality evaluation rules for state changes, transitions, and browse or read continuity.
+- Preserve durable checks for interaction stability without mixing them into project-governance docs.
+- Support consistent evaluation across functional and UX review work.
+
+## Ownership
+- This document owns reusable interaction-evaluation checks and cautions.
+- Use [../../agents/functional-evaluator.md](../../agents/functional-evaluator.md) for the functional evaluation role contract.
+- Use [../../agents/ux-heuristic-evaluator.md](../../agents/ux-heuristic-evaluator.md) for the UX heuristic evaluation role contract.
+- Use [../project/execution-loop-governance.md](../project/execution-loop-governance.md) for fail routing and loop handling.
+
+## Use
+- Apply these rules when evaluating visible state changes, navigation continuity, or browse and read flows.
+- Add new entries when the same class of interaction failure proves reusable beyond one feature.
+- Promote an entry elsewhere only when it becomes broader product law rather than an evaluation asset.
+
+## Reusable Evaluation Notes
+
+### 1. Interaction Stability
+- Click-driven view changes should swap to the next state only when the destination content is ready enough to avoid visible flicker, flash, or placeholder-only intermediate states.
+- Do not expose internal source paths, loading scaffolds, or temporary copy during normal screen transitions if the user can avoid seeing them.
+- Prefer atomic content swaps, cached data reuse, and background prefetching over clearing the current screen first and then rebuilding it.
+- Verify important browse and read flows by clicking through them in a browser and checking for brief visual flashes, unstable sticky regions, or loading-state leaks.
+
+### 2. Navigation Continuity
+- A user should not lose orientation during normal browse or read transitions.
+- Local view changes should preserve the surrounding shell and navigation anchors unless the approved feature explicitly changes them.
+- Returning from a detail surface or changing a browse mode should not feel like a reset unless the feature explicitly requires one.
+
+### 3. State Exposure Discipline
+- Intermediate system states should stay as invisible as reasonably possible during normal interaction.
+- Temporary copy, debug-facing labels, or source-oriented state descriptions should not leak into the user-visible surface.
+- If loading or recovery states are required, they should appear intentional and bounded rather than as raw implementation leakage.
+
+### 4. Interaction Binding Preservation
+- UI updates must not silently destroy active interaction bindings on controls that should continue working after a rerender.
+- If a surface rebuild replaces buttons, links, or controls with new nodes or components, the system must preserve or rebind the intended interactions as part of the same change.
+- Re-rendering markup without restoring event behavior is a blocking defect, not an acceptable implementation detail.
+- Pagination, mode toggles, navigation controls, and repeated actions should be explicitly rechecked after any interactive-surface replacement strategy.
+
+## Classification Guidance
+- Usually classify as `implementation bug` when the spec already requires stable transitions, continuity, or no-leak behavior.
+- Usually classify as `spec gap` when the spec failed to define how view changes, loading behavior, or navigation continuity should work.
+- Classify as `planning gap` when the interaction failure reveals a missing mode, missing flow definition, or wrong approved feature boundary.

@@ -1,31 +1,57 @@
 # Agent Roles
 
 ## Purpose
-- Keep reusable role definitions for iterative harness work in one editable package.
-- Draft and refine the role contracts here before promoting them into shared assets.
-- Keep these role docs general-purpose unless a file is explicitly marked repo-local.
+- Keep reusable role definitions for iterative harness work in one shared source package.
+- Keep these role docs general-purpose and portable across frontend, backend, and fullstack repos unless a file is explicitly marked domain-specific.
 
-## Current Roles
+## Planning Roles
 - `agents/prd-normalizer.md`: normalize chaotic product inputs into a bounded PRD package
 - `agents/feature-planner.md`: decompose a normalized PRD into loop-sized product and foundation features
-- `agents/workflow.md`: define the baton flow and approval points between roles
+
+## Execution Roles
+- `agents/orchestrator.md`: control one bounded execution loop and route failures to the right layer
+- `agents/spec-agent.md`: translate one approved feature into an implementation-facing spec
+- `agents/builder.md`: implement one approved spec without expanding scope
+- `agents/design-evaluator.md`: evaluate visual and design-surface correctness against sources and spec
+- `agents/functional-evaluator.md`: evaluate behavioral correctness, state handling, and regressions
+- `agents/ux-heuristic-evaluator.md`: evaluate interaction clarity and friction without inventing new scope
+- `agents/fix-agent.md`: apply targeted corrections from approved evaluator findings
+
+## Workflow
+- `agents/workflow.md`: define the baton flow, stop points, and role composition options
+- `agents/runner.md`: define how a human or harness starts and continues one run using prompts
+- `agents/ADOPTION-GUIDE.md`: explain how to export this shared package into a consuming repo and align it as local docs
 
 ## Related Shared Docs
-- `docs/policies/prd-feature-management.md`: shared planning-governance rules for PRDs and features
+- `agents/policies/harness/prd-feature-management.md`: planning-governance rule for PRDs, features, approval, and traceability
+- `agents/policies/harness/execution-loop-governance.md`: execution-loop rules, fail classification, routing, and artifact ownership
+- `agents/policies/review/design-evaluation.md`: reusable visual evaluation assets
+- `agents/policies/review/interaction-evaluation.md`: reusable interaction-quality evaluation assets
 - `agents/templates/prd.md`: reusable PRD template
 - `agents/templates/feature.md`: reusable feature template
+- `agents/templates/spec.md`: reusable spec template
+- `agents/templates/run.md`: reusable run template
+- `agents/templates/evaluation.md`: reusable evaluation template
+- `agents/templates/fix-log.md`: reusable fix-log template
+- `agents/templates/heuristic-backlog.md`: reusable heuristic backlog template
 
-## Planning Artifact Placement
-- In a consumer repo, store bounded PRD instances under `docs/plans/prd/`.
-- In a consumer repo, store loop-sized feature instances under `docs/plans/feature/`.
-- Keep the rules for those artifacts in `docs/policies/prd-feature-management.md` instead of repeating them in folder README files.
+## Consumer Repo Placement
+- This package is a shared source set, not a consumer repo by itself.
+- In a consuming repo, place:
+  - role docs under `docs/agents/`
+  - PRD and execution templates under `docs/plans/`
+  - governance and review assets under `docs/policies/`
+- Keep the rules for those artifacts in the consuming repo's policy layer instead of repeating them in folder README files.
 
 ## Workflow Variation
-- Treat `agents/workflow.md` as a reusable default example, not the only valid orchestration shape.
-- Consumer repos may assemble smaller or larger workflows from the same role set depending on product scope, stack shape, and approval needs.
+- Treat `agents/workflow.md` as a strong default example, not the only valid orchestration shape.
+- A consuming repo may use smaller or larger workflows from the same role set depending on product scope, stack shape, and approval needs.
 - When the workflow expands, keep the role contracts stable and add variation through sequencing rather than rewriting every role.
 
+## Invocation
+- Initialize one execution pass from the approved feature document and the runner guide.
+- Treat the runner guide as the ordered prompt source for the current execution pass instead of generating runtime scaffolding files automatically.
+
 ## Packaging Rule
-- Treat `agents/` as the shared home for stable general-purpose role definitions.
-- Promote or refine role drafts here once they are no longer repo-specific.
-- Keep repo-specific operating rules in project repos instead of hiding them inside reusable role definitions.
+- Treat `agents/` as the shared home for stable role definitions.
+- Keep repo-specific operating rules in the consuming repo's `AGENTS.md` or `docs/policies/`; do not hide them inside reusable role definitions.
