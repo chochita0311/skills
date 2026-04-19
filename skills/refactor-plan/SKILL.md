@@ -81,6 +81,17 @@ This skill is general-purpose. It should travel well across repositories, stacks
 
 If the project already has a numbered scheme such as `REFACTOR-0001`, reuse that style. If not, adapt the same structure to the local naming convention.
 
+## Artifact Roles
+
+Use the skill outputs as a small coordinated document set rather than one interchangeable file type.
+
+- Active plan:
+  - the main tracking document for scope, invariants, planned steps, validation gates, and exit goals
+- Refactor log:
+  - the default execution record when tracked refactor work changes code, confirms a blocker, records runtime verification, or closes a handoff event
+- Merge-check log:
+  - a decision record used when the active question is whether a step, batch, or track is safe to merge or parity-safe against its baseline
+
 ## Canonical Output Format
 
 Unless the repository already has a stronger mandatory format, generate plans in this exact section order:
@@ -113,6 +124,8 @@ Use this stricter structure by default. Do not omit sections just because the an
 
 Write refactor logs as durable execution records, not casual notes.
 
+- When tracked refactor execution changes code, write a step or batch log unless the repository already records the same event in an equivalent durable form.
+- Do not complete refactor work silently. Completed steps, confirmed blockers, runtime verification, and merge judgments should leave a durable log record.
 - Use logs to capture:
   - step completion
   - blocker discovery
@@ -139,6 +152,8 @@ Unless the project already has a stronger mandatory format, generate logs in one
 
 Use the shared template and adapt the optional sections to the log type instead of inventing a new structure each time.
 For merge or parity judgment logs, prefer the dedicated merge-check template instead of the general log form.
+Use a merge-check log when the main question is whether a specific step, batch, or track is safe to merge, parity-safe against a baseline, or still blocked by missing proof.
+Do not require a merge-check log for every execution step; use it when merge safety or parity judgment is the active decision.
 When baseline or parity expectations are not obvious from the project context, ask for the missing comparison target if needed; otherwise proceed with an explicit provisional assumption and record it in the merge check.
 
 ## Output Standard

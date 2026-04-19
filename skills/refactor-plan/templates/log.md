@@ -1,6 +1,7 @@
 # Refactor Log Form
 
 Use this template when writing a refactor execution log.
+When tracked refactor execution changes code, a step or batch log is the default record unless the repository already keeps an equivalent durable record for that exact event.
 
 Default location:
 - `./docs/plans/refactoring/logs/`

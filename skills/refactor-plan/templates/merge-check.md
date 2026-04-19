@@ -121,6 +121,12 @@ Examples:
 ## Usage Rules
 
 - Use this template when the main question is “is this scope safe to merge?”
+- Do not use this template for every execution event. Use it only when merge safety, parity status, or an explicit go/no-go decision is under review.
+- Typical triggers:
+  - a planned step or batch is complete and needs a merge decision
+  - the user asks whether parity is preserved or whether drift exists
+  - tests passed but merge safety is still uncertain because audit coverage is incomplete
+  - a branch, PR, or handoff needs an explicit merge judgment before proceeding
 - Keep it narrower than a branch diary. Only include the scope under current judgment.
 - Treat build and test pass as necessary evidence, not sufficient evidence, for parity.
 - If the project's comparison baseline is ambiguous, ask for it when needed; otherwise mark the baseline as provisional and say what assumption was used.
