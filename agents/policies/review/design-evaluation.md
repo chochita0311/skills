@@ -69,6 +69,33 @@
 - When tone tuning is needed, prefer existing foreground and container tokens that already belong to the active palette over ad hoc near-matches.
 - Evaluators should compare compact accents against nearby chips, labels, and control states to catch subtle tonal drift that makes the interface feel less system-driven.
 
+### 11. Footer Control Row Separation
+- Footer control rows and footer credit or attribution rows should be evaluated as separate information layers when they serve different purposes.
+- Pagination, page-size, page labels, or similar active controls should not be compressed into the same visual row as passive credit text if that reduces scan clarity.
+- Evaluators should confirm that row separation remains readable across desktop and smaller breakpoints.
+
+### 12. Width-Based Title Truncation Consistency
+- In repeated card grids, title truncation should respond to real card width rather than to the longest content in the dataset.
+- Short titles should keep their natural width, while long titles should truncate cleanly with ellipsis once they exceed the available title band.
+- Evaluators should check mixed-length title sets to confirm the title row reads as one consistent horizontal band across the grid.
+
+### 13. Overflow Metadata Reveal Shape
+- Hover or focus disclosure for overflow metadata should preserve the compact default card while revealing hidden items in a readable expanded panel.
+- The expanded panel should align to its trigger in a predictable direction and should not imply a different disclosure direction than the control actually uses.
+- Hidden metadata chips shown in the disclosure should size to their own content unless a stronger system rule explicitly requires uniform widths.
+
+
+### 14. First-State Surface Separation
+- When a feature introduces a landing-first or overlay-first entry state inside an existing shell, the first-state surface should read as the primary canvas until the handoff completes.
+- Downstream browse or read surfaces may remain technically mounted, but they should not visually compete so strongly that the first state feels like a weak layer floating over the real screen.
+- Evaluators should inspect initial load, mid-transition, and handoff moments separately rather than judging only the static landing composition.
+
+
+### 15. Viewport-Range Hero Anchor Stability
+- When a hero or first-state surface intentionally anchors primary copy to a specific vertical band, that anchor should remain perceptually stable across common laptop and desktop viewport ranges rather than drifting because of mixed `vh` and `vw` tuning.
+- Headline scale should also stay proportionate across those same ranges; smaller laptop widths should not make the same title feel meaningfully larger or heavier than intended when the surrounding shell typography remains stable.
+- Evaluators should compare at least one narrower laptop-sized viewport and one wider desktop viewport and confirm both the copy position and headline scale still match the intended composition.
+
 ## Classification Guidance
 - Usually classify as `implementation bug` when the spec already requires stable containment or shell preservation.
 - Usually classify as `spec gap` when the spec failed to define wrapping, truncation, breakpoint behavior, or shell-boundary expectations clearly enough.

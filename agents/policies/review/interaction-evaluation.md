@@ -60,6 +60,22 @@
 - If only a title, summary, or other sub-area opens a destination, the surrounding card body must not advertise clickability through pointer cursor or full-surface hover treatment.
 - Evaluators should compare real click targets with visible affordances and flag any surface that still feels clickable after the interactive area has been narrowed.
 
+### 9. Repeated Footer Action Anchoring
+- Repeated footer actions such as pagination buttons or page-size changes should preserve practical click reach after each state change.
+- If the result length changes after the action, the interaction should keep the footer control area anchored closely enough that the user can continue acting without re-chasing the control.
+- Evaluators should test short-final-page transitions, larger page-size transitions, and repeated previous or next actions near the bottom of the viewport.
+
+### 10. Disclosure Direction Consistency
+- A compact disclosure control should not visually imply one expansion direction while actually opening in another.
+- If a menu opens downward, its cue should remain stable or reinforce downward attachment rather than flipping into an upward state on open.
+- Evaluators should check both closed and expanded states and confirm that the visual cue, placement, and expanded panel all tell the same directional story.
+
+
+### 11. First-State Interaction Isolation
+- If a landing, modal, overlay, or other first-entry surface is meant to be the active state, downstream interactive surfaces must not remain keyboard-focusable, pointer-active, or screen-reader-visible during that phase.
+- Visual overlay alone is not sufficient evidence of isolation; evaluators should explicitly check `inert`, focus order, `aria-hidden`, or equivalent interaction-blocking behavior on deferred surfaces.
+- A feature may still pass if downstream content remains visually mounted for continuity, but only after evaluators confirm that the inactive layer cannot steal interaction before the handoff.
+
 ## Classification Guidance
 - Usually classify as `implementation bug` when the spec already requires stable transitions, continuity, or no-leak behavior.
 - Usually classify as `spec gap` when the spec failed to define how view changes, loading behavior, or navigation continuity should work.
