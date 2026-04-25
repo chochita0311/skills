@@ -23,9 +23,6 @@
 - `design-plan`:
   - add explicit source-priority guidance for constitution, current screens, and user direction
   - add a clearer stop/handoff boundary so design planning does not drift into constitution rewriting or implementation work
-- `refactor-plan`:
-  - add a shorter trigger/do-not-use summary near the top so the skill boundary is visible before the long workflow
-  - evaluate whether the plan/log output lifecycle should be stated more explicitly for temporary versus durable planning artifacts
 - `docs-structuring`:
   - evaluate whether it should state its default operating mode more explicitly when both incremental cleanup and larger restructure are possible
   - evaluate whether a short approval-boundary summary should appear earlier in `SKILL.md`, not only in deeper references

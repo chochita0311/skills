@@ -36,7 +36,7 @@
 - Temporary copy, debug-facing labels, or source-oriented state descriptions should not leak into the user-visible surface.
 - If loading or recovery states are required, they should appear intentional and bounded rather than as raw implementation leakage.
 
-### Binding And State Ownership
+### Binding, Scope, And Responsive State Ownership
 
 #### Interaction Binding Preservation
 - UI updates must not silently destroy active interaction bindings on controls that should continue working after a rerender.
@@ -48,6 +48,11 @@
 - When a scope change redefines the result set, explicit reset is usually safer than carrying forward the previous search or filter state.
 - If global filtering and scoped search would conflict, the interaction should clear one state before entering the other instead of leaving both implicitly active.
 - Evaluators should check whether query, tag, category, collection, or similar browse states are reset or preserved intentionally rather than by accident.
+
+#### Breakpoint Control-State Compatibility
+- If a responsive breakpoint hides or removes a mode switch, toggle, or similar state-changing control, the interface must also normalize into a state that remains supported without that control.
+- A hidden control must not leave the user stranded in a now-invisible or no-longer-supported mode merely because URL state, previous viewport state, or persisted runtime state still points there.
+- Evaluators should resize into and out of the affected breakpoint and also test direct-link entry with stateful query parameters to confirm that the visible controls and active runtime mode still match.
 
 ### Menus, Disclosures, And Affordances
 
@@ -71,17 +76,24 @@
 - If a menu opens downward, its cue should remain stable or reinforce downward attachment rather than flipping into an upward state on open.
 - Evaluators should check both closed and expanded states and confirm that the visual cue, placement, and expanded panel all tell the same directional story.
 
-### Repeated Controls And First-State Isolation
+### Repeated Controls And State Anchoring
 
 #### Repeated Footer Action Anchoring
 - Repeated footer actions such as pagination buttons or page-size changes should preserve practical click reach after each state change.
 - If the result length changes after the action, the interaction should keep the footer control area anchored closely enough that the user can continue acting without re-chasing the control.
 - Evaluators should test short-final-page transitions, larger page-size transitions, and repeated previous or next actions near the bottom of the viewport.
 
+### First-State Isolation And Handoff
+
 #### First-State Interaction Isolation
 - If a landing, modal, overlay, or other first-entry surface is meant to be the active state, downstream interactive surfaces must not remain keyboard-focusable, pointer-active, or screen-reader-visible during that phase.
 - Visual overlay alone is not sufficient evidence of isolation; evaluators should explicitly check `inert`, focus order, `aria-hidden`, or equivalent interaction-blocking behavior on deferred surfaces.
 - A feature may still pass if downstream content remains visually mounted for continuity, but only after evaluators confirm that the inactive layer cannot steal interaction before the handoff.
+
+#### First-State Handoff Consistency
+- When shell navigation, direct URL entry, or other scope-changing interaction hands off from a first-entry state to a downstream surface, the first-entry state must be dismissed early enough that it cannot visually reappear during the same transition.
+- Route interpretation, first-state visibility, and destination rendering should converge as one coherent handoff rather than exposing a frame where the old first state briefly competes with the chosen destination.
+- Evaluators should test narrow and wide viewport cases, direct-link entry, and shell-driven navigation to confirm that a hidden landing or overlay does not resurface because dismissal state lags behind routing or render order.
 
 ## Classification Guidance
 - Usually classify as `implementation bug` when the spec already requires stable transitions, continuity, or no-leak behavior.
